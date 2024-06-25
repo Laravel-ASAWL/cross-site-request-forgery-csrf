@@ -39,7 +39,7 @@
                                     <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">Comentarios</h2>
                                 </div>
                                 <form action="{{ route('comment') }}" method="POST" class="mb-6">
-                                    <!-- Inclusión del token de seguridad en el formulario -->
+                                    <!-- Inclusión del token CSRF en el formulario -->
                                     @csrf
                                     <div class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
                                         <label for="comment" class="sr-only">Tu comentario</label>

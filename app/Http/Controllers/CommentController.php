@@ -21,7 +21,7 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        // Validación del token de seguridad
+        // Validación del token CSRF
         if ($request->session()->token() == csrf_token())
         {
             // Validación de entradas

@@ -38,6 +38,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(...)
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->validateCsrfTokens(except: [
+            // incluir una dirección web que no es la web actual
             'https://*.cloudworkstations.dev',
         ]);
     })
@@ -48,7 +49,7 @@ return Application::configure(basePath: dirname(__DIR__))
 Validación del token: Cuando se envía una solicitud, Laravel verifica si el token [CSRF](https://laravel.com/docs/11.x/csrf) incluido en la solicitud coincide con el token almacenado en la sesión del usuario. Si los tokens no coinciden, la solicitud se rechaza.
 
 ```php
-<!-- Vista vulnerable a CSRF -->
+<!-- Vista protegida mediante el token CSRF -->
 <form action="{{ route('comment') }}" method="POST" class="...">
     @csrf
     <div class="...">
@@ -79,7 +80,7 @@ Validación del token: Cuando se envía una solicitud, Laravel verifica si el to
 Como se muestra en el controlador: [app/Http/Controllers/CommentController.php](./app/Http/Controllers/CommentController.php)
 
 ```php
-// Validación del token de seguridad
+// Validación del token CSRF
 if ($request->session()->token() == csrf_token())
 {
     ...
@@ -92,7 +93,7 @@ Como se muestra en la vista: [resources/views/comments.blade.php](./resources/vi
 
 ```php
 <form action="..." method="POST" class="...">
-    <!-- Inclusión del token de seguridad en el formulario -->
+    <!-- Inclusión del token CSRF en el formulario -->
     @csrf
     ...
 </form>
